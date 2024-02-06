@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import {
     StyleSheet,
     Text,
@@ -26,9 +27,22 @@ const Ragistration = () => {
     };
 
     let hendleClick = () => {
-        console.log(values.name);
-        console.log(values.email);
-        console.log(values.password);
+        let data = {
+            name: values.name,
+            email: values.email,
+            password: values.password,
+        };
+        axios
+            .get("http://localhost:8000/api/v1/auth/registration", data)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.error(
+                    "An error occurred while making the request:",
+                    error
+                );
+            });
     };
     let hendleEye = () => {
         setPassEye(!passEye);
